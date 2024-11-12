@@ -1,6 +1,6 @@
 /* Write your T-SQL query statement below */
-select e.name as employee
+select e.name as Employee
 from employee e
-join employee m on e.managerID = m.id
-where 
-e.salary > m.salary
+inner join employee e1 on
+e.managerID = e1.id
+where e.salary > e1.salary
