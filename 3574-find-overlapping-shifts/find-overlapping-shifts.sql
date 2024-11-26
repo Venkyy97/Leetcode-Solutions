@@ -1,5 +1,4 @@
-# Write your MySQL query statem
-# Please, upvote if you like it. Thanks :-)
+
 SELECT e1.employee_id,
        COUNT(*) AS overlapping_shifts
 FROM EmployeeShifts e1 JOIN EmployeeShifts e2
