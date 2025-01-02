@@ -1,5 +1,5 @@
-select e.name from employee e
-join employee m
-where e.id = m.managerID
-group by m.managerID
-having count(*) > 4
+select m.name from employee m
+join employee e on
+m.id = e.managerID
+group by e.managerID
+having count(*) >= 5
