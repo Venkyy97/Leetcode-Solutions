@@ -1,11 +1,10 @@
 # Write your MySQL query statement below
-SELECT c.name
-FROM candidate c
-JOIN (
-  SELECT candidateid
-  FROM vote
-  GROUP BY candidateid
-  ORDER BY COUNT(id) DESC
-  LIMIT 1
-) AS v
-ON c.id = v.candidateid;
+with cte as (
+    select *, count(candidateId) as cnt 
+    from vote
+    group by candidateId
+    order by count(candidateId) desc
+    limit 1
+)
+select c.name from candidate c
+join cte on c.id = cte.candidateId
