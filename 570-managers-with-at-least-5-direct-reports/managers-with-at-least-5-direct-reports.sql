@@ -1,6 +1,6 @@
-select m.name
-from employee e 
+select e.name 
+from employee e
 join employee m 
-on e.managerID = m.id
-group by m.id
+on e.id = m.managerId
+group by m.managerId
 having count(*) > 4
