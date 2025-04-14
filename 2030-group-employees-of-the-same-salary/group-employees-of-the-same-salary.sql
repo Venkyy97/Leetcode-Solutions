@@ -1,17 +1,13 @@
-with cte as  
-(select *,
-    count(*) over (partition by salary) as cnt 
-from employees)
-,
-cte2 as (
-    select * 
-    from cte
-    where cnt > 1 
+WITH salary_counts AS (
+    SELECT employee_id, name, salary,
+           COUNT(*) OVER (PARTITION BY salary) AS cnt
+    FROM employees
 )
-select employee_id,name, salary,
-dense_rank() over (order by salary) as team_id
-from cte2 
-order by dense_rank() over (order by salary) , employee_id asc
+SELECT employee_id, name, salary,
+       DENSE_RANK() OVER (ORDER BY salary) AS team_id
+FROM salary_counts
+WHERE cnt > 1
+ORDER BY salary, employee_id;
 
 
 
