@@ -1,11 +1,10 @@
-with cte as (select e.*,   d.name as dname,
-dense_rank() over (partition by d.name order by salary desc) as rnk 
-from employee e 
-left join department d
-on e.departmentId = d.id  )
+with cte as (
+    select e.id, e.name as Employee, salary, departmentId, d.name as dept,
+    dense_rank() over (partition by d.id order by salary desc) as rnk
+     from employee e 
+    join department d on e.departmentId = d.id
+)
 
-select dname as Department,
-name as employee,
-salary
+select dept as department, employee, salary
 from cte 
-where rnk < 4 
+where rnk < 4
