@@ -1,13 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack =[]
-        closeToOpen = { ")": "(", "]" : "[", "}" : "{"}
+        stk = []
+        hmap = {')':'(', ']':'[', '}': '{'}
+
         for c in s:
-            if c in closeToOpen:
-                if stack and stack[-1] == closeToOpen[c]:
-                    stack.pop()
-                else:
-                    return False
+            if not c in hmap:
+                stk.append(c)
             else:
-                stack.append(c)
-        return True if not stack else False
+                if not stk:
+                    return False
+                else:
+                    popped = stk.pop()
+                    if popped != hmap[c]:
+                        return False
+        return True if not stk else False
