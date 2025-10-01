@@ -1,9 +1,9 @@
-# Write your MySQL query statement below
-SELECT 
-  IFNULL(
-    (SELECT DISTINCT salary 
-     FROM employee 
-     ORDER BY salary DESC 
-     LIMIT 1 OFFSET 1), 
-    NULL
-  ) AS SecondHighestSalary;
+with cte as (
+    select *,
+    dense_rank() over (order by salary desc) as rnk 
+    from employee
+
+)
+select max(salary) as SecondHighestSalary 
+from cte
+where rnk = 2
